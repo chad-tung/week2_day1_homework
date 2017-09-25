@@ -3,29 +3,23 @@ class LibraryLoans
         @library = library
     end
 
-    def add_book_loan(title, name, date)
-        @library << {:title=>title, :rental_details=>{:student_name=>name, :date=>date}}
-    end
 
     def book_list()
-        for book in @library
-            puts book[:title]
-            # return book[:title], book[:rental_details][:student_name], book[:rental_details][:date]
-        end
+        return @library
     end
 
     def book_info(title)
         for book in @library
             if book[:title] == title
-                puts "#{book[:title]}, #{book[:rental_details][:student_name]}, #{book[:rental_details][:date]}"
+                return book
             end
         end
     end
 
-    def book_rental_info(title)
+    def book_rental_details(title)
         for book in @library
             if book[:title] == title
-                return "#{book[:rental_details][:student_name]}, #{book[:rental_details][:date]}"
+                return book[:rental_details]
             end
         end
     end
@@ -34,4 +28,12 @@ class LibraryLoans
         @library << {title: title, rental_details: {student_name: "", date: ""}}
     end
 
+    def change_rental_details(title, student_name, date)
+        for book in @library
+            if book[:title] == title
+                book[:rental_details][:student_name] = student_name
+                book[:rental_details][:date] = date
+            end
+        end
+    end
 end
